@@ -1,0 +1,32 @@
+inductive learning used for machine learning
+inductive takes in data to extrapalate and make predictions
+doesn't predict with abs certainy however
+data->model->prediction (not sound reasoning)
+algorithimic
+
+abductive reasoning:
+involves guesswork
+draws on partial info/data, usually pick most obvious sol
+
+deductive reasoning:
+sound form of reasoning
+application of algorithimic process to set of assumptions
+ex: assume x=1, deduce x+1=?
+by correctly applying rules of addition x+1 can be guranteed to =2
+ex: assume x=1, y=2 then x=1 & y=2 is true also x=1 OR y=10 is true
+& operator is communatitive (A&B = B&A)
+
+with mathematical reasoning start with set of basic assumptions that are assumed to be true-> axioms
+inference rules-combine axioms
+theorem: propositions shown to be true we can apply to dedeuctively derive more conclusions (kinda like axiom)
+
+
+natural numbers: set of counting numbers (0,1,2,3,..) N
+integers: set of positive and negative counting numbers (-1,0,1,..) Z
+rational numbers: set of numbers expressed as fractions Q
+real numbers: set of all non-imaginary numbers R
+complex numbers: set of numbers with real and imaginary partial
+
+intuitively we want to say every object is = to itself
+type theory: for every type, T, if I have object of that kind, t, then t=T
+1=1 is true by applying axiom of equality with type Real number
