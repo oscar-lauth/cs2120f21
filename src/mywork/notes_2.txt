@@ -1,0 +1,7 @@
+any rational expressed as either terminating decimal or repeating infinite decimal
+x=.171717....
+100x = 17.1717...
+100x-x=17.1717...-.1717...->99x=17, x=17/99
+-universal specialization/instantization
+-product set of naturals
+-relation is subset of ?

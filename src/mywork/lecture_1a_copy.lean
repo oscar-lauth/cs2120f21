@@ -279,6 +279,7 @@ example to follow!)
 
 example : 
   2=2 :=
+  --@eq.refl ℕ 2
   eq.refl 2
 
 
