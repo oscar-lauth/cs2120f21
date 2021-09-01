@@ -1,0 +1,2 @@
+> or < not reflexive (5<5 is not true)
+<= or >= is reflexive (5<=5 is true)
