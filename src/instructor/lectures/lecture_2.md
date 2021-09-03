@@ -2,7 +2,7 @@
 
 Equality is defined for all objects of all types
 by just two inference rules, which we accept as
-axioms. 
+axioms.
 
 - the axiom of the *reflexivity of equality*
 - the axiom of the *substitutability of equals*
@@ -107,7 +107,7 @@ Examples:
   - if true, then _X_ "has the property of being equal to 3"
   - of course there is a number, 3, that *satisfies* this predicate
 
-Suppose that for predicates P and Q, the type of 
+Suppose that for predicates P and Q, the type of
 _X_ is string. You can then *apply* either predicate,
 P or Q, to a string to get a resulting proposition.
 
@@ -177,7 +177,7 @@ know that "x = y," then we can conclude that y + 2
 In other words, the second axiom gives us a license
 to *rewrite* propositions by replacing one term with
 another as long as we can prove a proof of equality
-as an argument. 
+as an argument.
 
 Here's the idea presented in the formal language
 of predicate logic.
@@ -197,13 +197,13 @@ of this type (P : T \to Prop), if you know (x : T)
 has property P (written as P x) and you know that
 x = y, then you can deduce P y: y has property P.
 
-Example:
+### Example using substitutability axiom
 
 In the context of the following assumptions ...
 
 ``` lean
 axioms
-  T : Type := nat
+  (T : Type)
   (P : T → Prop)
   (x y : T)
   (e : x = y)
@@ -212,8 +212,8 @@ axioms
 
 Can we prove P y?
 
-English: We've assumed P x and x = y, so P y must be
-true by the (axiom of the) substitutability of equals.
+English: We've assumed that P x is true, and x = y,
+so P y must be true by the substitutability of equals.
 
 Formal:
 
@@ -221,33 +221,78 @@ Formal:
 example : P y := eq_subst T P x y e px
 ```
 
-So that's it as far as the axioms of equality are concerned.
--/
+So that's it as far as the axioms of equality
+are concerned. Now we come to the remarkable
+fact that from these two axioms, it can be
+proved that the equality relation has two
+additional crucial properties.
 
-/-
-TRANSITIVITY.
+### Theorem: Equality is symmetric
+
+Theorem: equality is symmetric.
+
+Proof. Assume T is some type and x and
+y are objects of this type. To prove that
+equality is symmetric, we must prove that,
+for *any* x and y of this type, if x = y
+then it must be the case that y = x.
+
+By the axiom of the substitutivity of
+equals, y = x is equivalent to y = y
+(rewriting the x as y justified by the
+assumption that x = y); but y = y is
+true by the axiom of the reflexivity
+of equality, and so the proof is done.
+QED.
+
+Here's a less verbose proof.
+
+Proof: By the substitutability of equals,
+we can rewrite y = x as y = y, but this is
+true by the reflexivity of equality. QED.
+
+Here's another way.
+
+1. T is a type               assumption
+2. x and y are of type T     assumption
+3. x = y                     assumption
+4. y = x                     goal
+5. y = y                     by substitutability using 3
+6. QED                       by reflexivity
+
+### Theorem: Equality is transitive
 
 If x, y, and z are objects of some type, T, and we
 know (have proofs or axioms) that x = y and y = z,
-then we can deduce (and have a proof) that x = z.
+then we must show (construct a proof) that x = z.
 
-Challenge problem: prove (informally) that equality
-is transitive!
+The argument is very similar to that for symmetry.
 
-In super-plain English, this rule says that
-if some proposition P about x, (P x), is true
-and you also know that x and y are equal, you
-can then deduce (P y): that the proposition,
-modified to be about y, must also be true. In
-short, if you know P x and x = y then you can
-deduce that P y must also be true.
+Proof. We are given as assumptions that T is a
+type; x, y, and z are values of this type; and
+that x = y and y = z. In this context, we are to
+show that x = z. We first apply substitutability
+using our proof of x = y to rewrite the x in the
+goal to y, yielding a new goal: y = z. But that
+is something we've already assumed is true.
 
-You ask, what do you mean, "What you can do
-with a proof?" And the answer is that you
-can use it as evidence that shows that it's
-ok to make a particular logical deduction.
+Or, if you prefer, in this last step, we can
+use the assumption that y = z to apply the
+axiom of the substitutability of equals to
+rewrite the y in y = z to z, yielding z = z.
+And that is proved from the reflexivity of
+the equality relation on any type of objects.
+QED.
 
-Let's assume for a moment that we've been
-given a type, T, such as nat or bool. What
-the axioms then do in effect is to define
-equality as a binary relation on T.
+## Conclusion
+
+What you have now seen is the essence of a logical
+argument (proof). We start with given axioms (such
+as the reflexivity and substitutability of equals),
+and from them we then deduce (construct proofs of)
+new facts (such as the symmetry and transitivity
+of equality). This is how all of mathematics works!
+"Big" theorems are derived from axioms, "smaller"
+theorems, and other values by the application of
+inference rules that are themselves accepted as the
+fundamental axioms of a given mathematical logic.
