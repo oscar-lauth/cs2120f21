@@ -148,5 +148,12 @@ INTRODUCTION and ELIMINATION RULES
 --analogy to python:
   -intro rule: function that returns proof
   -elim rule: function that takes in a proof as a param
+  -if reflexive, transitive, symmetric-->equivalence relation
+
+
+
+  For P → Q
+  -intro rule: assume arbitrary P, then show Q
+  -elim rule: next time. 
 -/
 
