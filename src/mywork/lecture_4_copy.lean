@@ -145,5 +145,8 @@ end
 
 /-
 INTRODUCTION and ELIMINATION RULES
+--analogy to python:
+  -intro rule: function that returns proof
+  -elim rule: function that takes in a proof as a param
 -/
 
