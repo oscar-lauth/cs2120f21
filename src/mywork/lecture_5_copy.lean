@@ -95,6 +95,8 @@ end
 --given a proof of P ∧ Q, what can be deduced?
     --that P is true
     --that Q is true
+--conjunction: prop that uses ∧ (and)
+
   theorem bar: 0=0 ∧ 1=1 :=
   begin
   apply and.intro (eq.refl 0) (eq.refl 1),
