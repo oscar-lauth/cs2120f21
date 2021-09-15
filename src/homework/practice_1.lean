@@ -82,7 +82,7 @@ Hint: put parenthesis around "n + 1" in your answer.
 -/
 
 def successor_of_even_is_odd : Prop := 
-  ∀(n : ℕ) ev → (n+1) odd
+  ∀(n : ℕ) ev → (n+1)odd
 
 /- #7
 Suppose that "its_raining" and "the_streets_are_wet" are
@@ -107,7 +107,7 @@ you are asked to use the elimination rule for →.
 
 axiom pf_raining : raining
 
-example : streets_wet :=
+example : streets_wet := if_raining_then_streets_wet pf_raining 
  
 
 /- 
