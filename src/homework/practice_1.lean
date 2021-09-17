@@ -1,4 +1,9 @@
 /-
+pineapple
+whd7zb; https://github.com/oscar-lauth/cs2120f21.git
+np3wj; https://github.com/pniroj/cs2120f21.git
+-/
+/-
 EQUALITY
 -/
 
