@@ -82,7 +82,7 @@ Hint: put parenthesis around "n + 1" in your answer.
 -/
 
 def successor_of_even_is_odd : Prop := 
-  ∀(n : ℕ) ev → (n+1)odd
+  ∀(n : ℕ) ev → (n+1) odd
 
 /- #7
 Suppose that "its_raining" and "the_streets_are_wet" are
@@ -153,9 +153,14 @@ theorem and_associative :
   ∀ (P Q R : Prop),
   (P ∧ (Q ∧ R)) → ((P ∧ Q) ∧ R) :=
 begin
-  intros P Q R h,
-  have p : P := and.elim_left h,
-end
+    assume P Q R,
+    assume h,
+    have qr: Q ∧ R := and.elim_right h,
+    have q : Q := and.elim_left qr,
+    have r : R := and.elim_right qr,
+    have p : P := and.elim_left h,
+    exact and.intro (and.intro p q) r 
+  end
 
 /- #11
 Give an English language proof of the preceding
@@ -168,10 +173,10 @@ proof, let's call it p_qr, of (P ∧ (Q ∧ R)) [by
 application of ∧ and → introduction.] What now
 remains to be proved is ((P ∧ Q) ∧ R). We can
 construct a proof of this proposition by applying
-_____ to a proof of (P ∧ Q) and a proof of R.
+the introduction rule for ∧ to a proof of (P ∧ Q) and a proof of R.
 What remains, then, is to obtain these proofs.
 But this is easily done by the application of
-____ to ____. QED. 
+the elimination rule for ∧ to (P ∧ (Q ∧ R)). QED. 
 -/
 
 
