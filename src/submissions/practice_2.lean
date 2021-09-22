@@ -1,4 +1,7 @@
 /-
+whd7zb; https://github.com/oscar-lauth/cs2120f21.git
+-/
+/-
 Prove the following simple logical conjectures.
 Give a formal and an English proof of each one.
 Your English language proofs should be complete

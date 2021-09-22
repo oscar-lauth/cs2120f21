@@ -1,4 +1,9 @@
 /-
+whd7zb; https://github.com/oscar-lauth/cs2120f21.git
+-/
+
+
+/-
 Prove the following simple logical conjectures.
 Give a formal and an English proof of each one.
 Your English language proofs should be complete
@@ -35,8 +40,8 @@ end
 /-
 Show that P ∧ P ↔ P.
 For the forward direction, we assume to have a specific proposition P and a proof
-of P ∧ P. Using the elimination rule for and on P ∧ P, we get a proof of P. 
-For the backward direction, we assume a proof of P and apply the and introduction rule to form P ∧ P. 
+of P ∧ P. Using the elimination rule for AND on P ∧ P, we get a proof of P. 
+For the backward direction, we assume a proof of P and apply the AND introduction rule to form P ∧ P. 
 We combine the foward and backward proofs in the introduction rule for if and only if. QED
 -/
 example : ∀ (P : Prop), P ∧ P ↔ P := 
@@ -53,10 +58,10 @@ end
 /-
 Show that P ∨ Q ↔ Q ∨ P.
 For the forward direction, we assume to have specific propositions P, Q and a proof
-of P ∨ Q. Using case analysis on P ∨ Q, we get a proof of P for case 1. Then we use the right or introduction rule 
-to prove Q ∨ P. For case 2, we get a proof of Q. Then we use the left or introduction rule to prove Q ∨ P.
+of P ∨ Q. Using case analysis on P ∨ Q, we get a proof of P for case 1. Then we use the right OR introduction rule 
+to prove Q ∨ P. For case 2, we get a proof of Q. Then we use the left OR introduction rule to prove Q ∨ P.
 For the backward direction, we assume a proof of Q ∨ P and use case analysis on this proof. Case 1 gives 
-a proof of Q which we use in right or introduction rule to prove P ∨ Q. Case 2 gives a proof of P which we use in the left or introduction rule to prove P ∨ Q.
+a proof of Q which we use in right OR introduction rule to prove P ∨ Q. Case 2 gives a proof of P which we use in the left OR introduction rule to prove P ∨ Q.
 We combine the foward and backward proofs in the introduction rule for if and only if. QED
 -/
 example : ∀ (P Q : Prop), P ∨ Q ↔ Q ∨ P := 
@@ -286,7 +291,7 @@ end
 /-
 Show that P ∧ false ↔ false.
 For the forward direction, we assume to have a specific proposition P and a proof
-of P ∧ false. We apply AND right elimination rule to get false. For the backward direction,
+of P ∧ false. We apply AND right elimination rule to P ∧ false to get false. For the backward direction,
 we assume to have false (the absence of a proof). We apply false's elimination rule to false to get a proof of P.
 We then apply the AND introduction rule to the proof of P and false to get P ∧ false.
 We combine the foward and backward proofs in the introduction rule for if and only if. QED
