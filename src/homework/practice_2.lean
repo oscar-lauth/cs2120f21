@@ -11,16 +11,16 @@ in the sense that they identify all the axioms
 and/or theorems that you use.
 -/
 
-example : true := true.intro --There always exists a proof of true
+example : true := true.intro --Using true's introudction rule, we get a proof of true. QED
 
-example : false := _     -- trick question? why? There exists no proof of false
+example : false := _     -- trick question? why? There exists no proof of false. QED
 
 /-
 Show that P ∨ P ↔ P. 
 For the forward direction, we assume to have a specific proposition P and a proof
 of P ∨ P. Using a case analysis of P ∨ P, in case 1 we get a proof of P and in case 2 
 we get a proof of P. Therefore, P ∨ P implies P. For the backward direction, we assume 
-a proof of P and use the left introduction rule for or to show that P implies P ∨ P. 
+a proof of P and use the left introduction rule for OR to show that P implies P ∨ P. 
 We combine the foward and backward proofs in the introduction rule for if and only if. QED
 -/
 example : ∀ (P : Prop), P ∨ P ↔ P := 
