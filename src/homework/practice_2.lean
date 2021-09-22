@@ -11,7 +11,7 @@ in the sense that they identify all the axioms
 and/or theorems that you use.
 -/
 
-example : true := true.intro --Using true's introudction rule, we get a proof of true. QED
+example : true := true.intro --Using true's introduction rule, we get a proof of true. QED
 
 example : false := _     -- trick question? why? There exists no proof of false. QED
 
@@ -21,7 +21,7 @@ For the forward direction, we assume to have a specific proposition P and a proo
 of P ∨ P. Using a case analysis of P ∨ P, in case 1 we get a proof of P and in case 2 
 we get a proof of P. Therefore, P ∨ P implies P. For the backward direction, we assume 
 a proof of P and use the left introduction rule for OR to show that P implies P ∨ P. 
-We combine the foward and backward proofs in the introduction rule for if and only if. QED
+We combine the forward and backward proofs in the introduction rule for if and only if. QED
 -/
 example : ∀ (P : Prop), P ∨ P ↔ P := 
 begin
@@ -42,7 +42,7 @@ Show that P ∧ P ↔ P.
 For the forward direction, we assume to have a specific proposition P and a proof
 of P ∧ P. Using the elimination rule for AND on P ∧ P, we get a proof of P. 
 For the backward direction, we assume a proof of P and apply the AND introduction rule to form P ∧ P. 
-We combine the foward and backward proofs in the introduction rule for if and only if. QED
+We combine the forward and backward proofs in the introduction rule for if and only if. QED
 -/
 example : ∀ (P : Prop), P ∧ P ↔ P := 
 begin
@@ -62,7 +62,7 @@ of P ∨ Q. Using case analysis on P ∨ Q, we get a proof of P for case 1. Then
 to prove Q ∨ P. For case 2, we get a proof of Q. Then we use the left OR introduction rule to prove Q ∨ P.
 For the backward direction, we assume a proof of Q ∨ P and use case analysis on this proof. Case 1 gives 
 a proof of Q which we use in right OR introduction rule to prove P ∨ Q. Case 2 gives a proof of P which we use in the left OR introduction rule to prove P ∨ Q.
-We combine the foward and backward proofs in the introduction rule for if and only if. QED
+We combine the forward and backward proofs in the introduction rule for if and only if. QED
 -/
 example : ∀ (P Q : Prop), P ∨ Q ↔ Q ∨ P := 
 begin
@@ -87,7 +87,7 @@ elimination right rule we get a proof of Q. We use the proof of Q and then the p
 of P in the introduction rule for AND to prove Q ∧ P. For the backward direction, we assume a 
 proof of Q ∧ P. We apply to this the right and left AND elimination rules to get proofs of P and Q respectively.
 Then, using the AND introduction rule we form a proof of P ∧ Q.
-We combine the foward and backward proofs in the introduction rule for if and only if. QED
+We combine the forward and backward proofs in the introduction rule for if and only if. QED
 -/
 example : ∀ (P Q : Prop), P ∧ Q ↔ Q ∧ P := 
 begin
@@ -119,7 +119,7 @@ Case 1 gives a proof of P ∧ Q. We then do case analysis on this. Subcase 1 giv
 We use the OR introduction left rule on proof of Q to get Q ∨ R. Using the AND introduction rule on the proof of P and on Q ∨ R we get P ∧ (Q ∨ R).
 Case 2 gives a proof of P ∧ R. We then do case analysis on this. Subcase 1 gives a proof of P and subcase 2 gives a proof of R.
 We use the OR introduction right rule on proof of R to get Q ∨ R. Using the AND introduction rule on the proof of P and on Q ∨ R we get P ∧ (Q ∨ R).
-We combine the foward and backward proofs in the introduction rule for if and only if. QED
+We combine the forward and backward proofs in the introduction rule for if and only if. QED
 -/
 example : ∀ (P Q R : Prop), P ∧ (Q ∨ R) ↔ (P ∧ Q) ∨ (P ∧ R) := 
 begin
@@ -158,7 +158,7 @@ We then do case analysis on P ∨ Q and apply the OR introduction left rule to g
 We then do case analysis on P ∨ R and apply the OR introduction left rule to get a proof of P ∨ (Q ∧ R).
 Using proofs of Q and R from case analysis, we apply the AND introduction rule to get a proof of Q ∧ R.
 We apply the OR introduction right rule to Q ∧ R to get a proof of P ∨ (Q ∧ R).
-We combine the foward and backward proofs in the introduction rule for if and only if. QED
+We combine the forward and backward proofs in the introduction rule for if and only if. QED
 -/
 example : ∀ (P Q R : Prop), P ∨ (Q ∧ R) ↔ (P ∨ Q) ∧ (P ∨ R) := 
 begin
@@ -194,7 +194,7 @@ For the forward direction, we assume to have specific propositions P, Q and a pr
 of P ∧ (P ∨ Q). Using the AND left elimination rule on this proof, we get a proof of P.
 For the backward direction, we assume to have a proof of P. Using the OR introduction left rule, we get a proof of P ∨ Q.
 Then, we apply the AND introduction rule to the proof of P and proof of P ∨ Q to get a proof of P ∧ (P ∨ Q).
-We combine the foward and backward proofs in the introduction rule for if and only if. QED
+We combine the forward and backward proofs in the introduction rule for if and only if. QED
 -/
 example : ∀ (P Q : Prop), P ∧ (P ∨ Q) ↔ P := 
 begin
@@ -216,7 +216,7 @@ For the forward direction, we assume to have specific propositions P, Q and a pr
 of P ∨ (P ∧ Q). We do case analysis on P ∨ (P ∧ Q). Case 1 gives a proof of P. Case 2 gives a 
 proof of P ∧ Q which we can apply AND left elimination rule to get a proof of P.
 In the backward direction, we assume to have a proof of P. We apply the OR introduction left rule to proof of P to get P ∨ (P ∧ Q).
-We combine the foward and backward proofs in the introduction rule for if and only if. QED
+We combine the forward and backward proofs in the introduction rule for if and only if. QED
 -/
 example : ∀ (P Q : Prop), P ∨ (P ∧ Q) ↔ P := 
 begin
@@ -236,7 +236,7 @@ Show that P ∨ true ↔ true.
 For the forward direction, we assume to have a specific proposition P and a proof
 of P ∨ true. Applying the introduction rule for true, we get a proof of true.
 In the backward direction, we assume to have a proof of true. We apply the OR introduction right rule to proof of true to get P ∨ true.
-We combine the foward and backward proofs in the introduction rule for if and only if. QED
+We combine the forward and backward proofs in the introduction rule for if and only if. QED
 -/
 example : ∀ (P : Prop), P ∨ true ↔ true := 
 begin
@@ -254,7 +254,7 @@ Show that P ∨ false ↔ P.
 For the forward direction, we assume to have a specific proposition P and a proof
 of P ∨ false. We do case analysis on P ∨ false. Case 1 gives a proof of P. For case 2, applying the false elimination rule gives a proof of P.
 In the backward direction, we assume to have a proof of P. We then apply the OR left introduction rule to the proof of P to get P ∨ false.  
-We combine the foward and backward proofs in the introduction rule for if and only if. QED
+We combine the forward and backward proofs in the introduction rule for if and only if. QED
 -/
 example : ∀ (P : Prop), P ∨ false ↔ P := 
 begin
@@ -275,7 +275,7 @@ For the forward direction, we assume to have a specific proposition P and a proo
 of P ∧ true. We then apply the AND left elimination rule to P ∧ true to get a proof of P.
 For the backward direction, we assume to have a proof of P. We apply the AND introduction rule to the proof of P and to a proof of true 
 (from true's introduction rule) to get P ∧ true.
-We combine the foward and backward proofs in the introduction rule for if and only if. QED
+We combine the forward and backward proofs in the introduction rule for if and only if. QED
 -/
 example : ∀ (P : Prop), P ∧ true ↔ P := 
 begin
@@ -294,7 +294,7 @@ For the forward direction, we assume to have a specific proposition P and a proo
 of P ∧ false. We apply AND right elimination rule to P ∧ false to get false. For the backward direction,
 we assume to have false (the absence of a proof). We apply false's elimination rule to false to get a proof of P.
 We then apply the AND introduction rule to the proof of P and false to get P ∧ false.
-We combine the foward and backward proofs in the introduction rule for if and only if. QED
+We combine the forward and backward proofs in the introduction rule for if and only if. QED
 -/
 example : ∀ (P : Prop), P ∧ false ↔ false := 
 begin
