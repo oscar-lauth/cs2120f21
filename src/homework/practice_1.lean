@@ -17,7 +17,8 @@ of equality that we have proven. Hint: There's something about
 this question that makes it much easier to answer than it might
 at first appear.
 
-
+Given a proof that w = z, we can apply the symmetric theorem of equality. This shows z = w, QED.
+-/
 
 /- #2
 Give a formal statement of the conjecture (proposition) from
