@@ -311,4 +311,5 @@ begin
   cases h,                -- there are *zero* ways to build a proof of 0 = 1
                           -- case analysis discharges our "proof obligation"
 end
-
+--predicate takes in arguments and returns a proposition
+--this proposition still needs to be proven

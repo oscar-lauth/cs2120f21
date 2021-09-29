@@ -128,6 +128,7 @@ theorem distrib_and_or :
 begin
   assume P Q R,
   apply iff.intro _ _,
+  --forward
   assume h,
   have porq:=and.elim_left h,
   have porr:=and.elim_right h,
@@ -198,14 +199,12 @@ end
 Formally state and prove the proposition that
 not every natural number is equal to zero.
 -/
-lemma not_all_nats_are_zero : ∀(n : ℕ), n:ℕ→ n≠0:=
+lemma not_all_nats_are_zero : ∃ (n : ℕ), n≠0 :=
 begin
-  assume n,
+  apply exists.intro _ _,
+  exact 1,
   assume h,
-  have n:=0,
-  have m:ℕ:= n+1,
-  have g:=(h n),
-  exact false.elim (h n),
+  cases h,
 end 
 
 -- 11. equivalence of P→Q and (¬P∨Q)
