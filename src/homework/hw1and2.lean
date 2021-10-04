@@ -41,9 +41,9 @@ again, called eq.refl, eq.subst, eq.symm, eq.trans.
 
 theorem prop_1_proof : prop_1 := 
 begin
-  assume T x y z w e1 e2 e3,
-  apply eq.symm e3,
-
+  assume T x y z w,
+  assume xy yz zw,
+  exact eq.symm zw,
 end
 
 /-
@@ -59,6 +59,11 @@ type of X.)
 For the introduction rule for ∀, you assume an arbitrary object x of Type T and then show P is true for x.
 -/
 
+/-
+Assume you;re given an arbitrary but specific x, show that 
+it satisfies P;  because the choice  was arbirtrary, P must be
+true of any x (you could have picked any of them!)-/
+
 /- #5
 Suppose you have a proof, let's call it pf, of the proposition,
 (∀ x, P x), and you need a proof of P t, for some particular t.
@@ -66,6 +71,26 @@ Write an expression then uses the elimination rule for ∀ to get
 such a proof. Complete the answer by replacing the underscores
 in the following expression: ( pf t ). 
 -/
+
+
+axioms 
+(Ball : Type)
+(blue : Ball → Prop)
+(allBallsBlue : ∀ (b : Ball), blue b)
+(tomsBall : Ball)
+
+theorem tomsBallIsBlue : blue tomsBall := 
+  allBallsBlue tomsBall
+
+#check allBallsBlue
+
+example : ∀ (P Q : Prop), P ∧ Q → Q ∧ P :=
+begin
+  assume P Q h,
+  have p : P := h.left,
+  have q : Q := h.right,
+  exact and.intro q p,
+end
 
 /-
 IMPLIES: →
@@ -88,7 +113,7 @@ Hint: put parenthesis around "n + 1" in your answer.
 -/
 
 def successor_of_even_is_odd : Prop := 
-  ∀(n : ℕ) ev → (n+1) odd
+  ∀ (n : ℕ), ev n → odd (n + 1)
 
 /- #7
 Suppose that "its_raining" and "the_streets_are_wet" are
@@ -166,7 +191,11 @@ begin
     have r : R := and.elim_right qr,
     have p : P := and.elim_left h,
     exact and.intro (and.intro p q) r 
-  end
+end
+  /-intros P Q R h,
+  have p : P := and.elim_left h,
+  have q : Q := (and.elim_right h).left
+end-/
 
 /- #11
 Give an English language proof of the preceding
@@ -194,5 +223,6 @@ as the following check commands reveal.
 Note the difference in naming relative to
 the definitions we give in this file.
 -/
+
 #check @and.comm
 #check @and.assoc
