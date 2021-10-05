@@ -15,7 +15,8 @@ example : 0 ≠ 0 → 2 = 3 :=
 begin
   --trivial,
   assume h,
-  have f : false := h (eq.refl 0),
+  have zeqz := eq.refl 0,
+  have f : false := h zeqz,
   exact false.elim (f),
 end
 
@@ -89,7 +90,7 @@ end
 
 
 -- 6
-theorem demorgan_2 : ∀ (P Q : Prop), ¬ (P ∨ Q) → ¬P ∧ ¬Q :=
+theorem demorgan_2 : ∀ (P Q : Prop), ¬ (P ∨ Q) → (¬P ∧ ¬Q) :=
 begin
   assume P Q,
   assume h,
@@ -256,3 +257,8 @@ begin
   exact false.elim f,
 end
 
+
+
+axioms (T : Type) (Q : Prop) (f : ∀ (t : T), Q) (t : T)
+example : Q := f t
+#check f
