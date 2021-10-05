@@ -6,12 +6,14 @@ begin
   -- (0 = 1) → false
   assume h,
   cases h,
+  --trivial,
 end
 
 
 -- 2
 example : 0 ≠ 0 → 2 = 3 :=
 begin
+  --trivial,
   assume h,
   have f : false := h (eq.refl 0),
   exact false.elim (f),
@@ -46,6 +48,8 @@ having evidence *why* something is either true or
 not true, in that you no longer need a proof of 
 either P or of ¬P to have a proof of P ∨ ¬P.
 -/
+--proof by negation: want to show notP, assume P 
+--proof by contradiction: assume notP, show contradiction
 
 -- 4
 theorem neg_elim : ∀ (P : Prop), ¬¬P → P :=
@@ -73,6 +77,7 @@ begin
   exact or.intro_right (¬P) nq,
   exact or.intro_left (¬Q) np,
   --backward
+  --admit
   assume npornq,
   assume pandq,
   have p:=and.elim_left pandq,
