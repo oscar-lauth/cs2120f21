@@ -39,19 +39,25 @@ ELIMINATION
 Complete the definition of the elimination
 rule for →.
 
+In English: Given propositions, P and Q, 
+a proof of P → Q, and a proof of P. We can obtain a proof of Q by applying P → Q to P. 
+from any proof of P, is a proof of P → Q.
+
 (P Q : Prop) (p2q : P → Q) (p : P)
-----------------------------------
-     [replace with answer]
+----------------------------------elim
+            (p2q p)
 -/
 
 -- Give a formal proof of the following
 example : ∀ (P Q : Prop) (p2q : P → Q) (p : P), Q :=
 begin
-  _
+  assume P Q,
+  assume p2q,
+  apply p2q,
 end
 
 -- Extra credit [2 points]. Who invented this principle?
-
+--Aristotle?
 
 
 -- -------------------------------------
@@ -64,7 +70,7 @@ INTRODUCTION
 Give the introduction rule for true using
 inference rule notation.
 
-[Here's our answer.]
+[intro.true]
 
 ---------- intro
 (pf: true)
@@ -72,14 +78,14 @@ inference rule notation.
 Give a brief English language explanation of
 the introduction rule for true.
 
--- answer here
+-- we always have a proof of true so we 
 
 ELIMINATION
 
 Give an English language description of the
 eliimination rule for true.
 
-[Our answer]
+[There is no elimination rule for true]
 
 A proof of true carries no information so
 there's no use for an elimination rule.
@@ -87,7 +93,10 @@ there's no use for an elimination rule.
 
 -- Give a formal proof of the following:
 
-example : true := _
+example : true :=
+  begin
+    exact true.intro
+  end
 
 
 -- -------------------------------------
@@ -99,7 +108,7 @@ INTRODUCTION
 Using inference rule notation, give the 
 introduction rule for ∧.
 
-[Our answer]
+[and.intro P Q]
 
 (P Q : Prop) (p : P) (q : Q)
 ---------------------------- intro
@@ -109,20 +118,38 @@ Given an English language description of
 this inference rule. What does it really
 say, in plain simple English. 
 
--- answer here
+-- Using a proof p of P as well as a proof q of Q, we can construct P ∧ Q.
+
 
 ELIMINATION
 
 Given the elimination rules for ∧ in both
 inference rule and English language forms.
 -/
+/-
+(P Q : Prop) (pq : P ∧ Q)
+---------------------------- elim_left
+        (p : P)
+
+(P Q : Prop) (pq : P ∧ Q)
+---------------------------- elim_right
+        (q : Q)
+-/
+
+--Given a proof of P ∧ Q, we can obtain a proof p of P by applying and's left elimination rule
+--Given a proof of P ∧ Q, we can obtain a proof q of Q by applying and's right elimination rule
 
 /-
 Formally state and prove the theorem that, 
 for any propositions P and Q,  Q ∧ P → P. 
 -/
 
-example : _ := _
+example : ∀ (P Q : Prop), Q ∧ P → P :=
+  begin
+    assume P Q,
+    assume qandp,
+    exact and.elim_right qandp,
+  end
 
 
 -- -------------------------------------
@@ -137,7 +164,7 @@ T is any type (such as nat) and Q is any proposition
 given type), how do you prove ∀ (t : T), Q? What is
 the introduction rule for ∀?
 
--- answer here
+-- assume an arbitrary t and show Q
 
 ELIMINATION
 
@@ -148,15 +175,16 @@ what it says.
 
 (T : Type) (Q : Prop), (pf : ∀ (t : T), Q) (t : T)
 -------------------------------------------------- elim
-                [Replace with answer]
+                (pf t)
 
 -- English language answer here
+--Given a 
 
 Given a proof, (pf : ∀ (t : T), Q), and a value, (t : T),
 briefly explain in English how you *use* pf to derive a
 proof of Q.
 
--- answer here
+-- you apply pf to t to derive a proof of Q
 -/
 
 /-
@@ -173,14 +201,19 @@ axioms
   -- formalizee the following assumptions here
   -- (1) Lynn is a person
   -- (2) Lynn knows logic
-  -- add answer here
-  -- add answer here
+  (Lynn : Person)
+  (knowsLogicLynn : KnowsLogic Lynn)
+
 
 /-
 Now, formally state and prove the proposition that
 Lynn is a better computer scientist
 -/
-example : _ := _
+example : (BetterComputerScientist Lynn):=
+  begin
+    apply LogicMakesYouBetterAtCS _,
+    exact knowsLogicLynn,
+  end
 
 
 
@@ -196,7 +229,7 @@ Lean's definition of not.
 -/
 
 namespace hidden
-def not (P : Prop) := _ -- fill in the placeholder
+def not (P : Prop) := P → false -- fill in the placeholder
 end hidden
 
 /-
@@ -205,7 +238,8 @@ of "proof by negation." Explain how one uses this
 strategy to prove a proposition, ¬P. 
 -/
 
--- answer here
+-- ¬P means that P → false so the strategy in proving ¬P is to 
+--assume P and show this leads to a contradiction and conclude P → false and thus ¬P
 
 /-
 Explain precisely in English the "proof strategy"
@@ -215,15 +249,15 @@ the lack of a ¬ in front of the P).
 
 Fill in the blanks the following partial answer:
 
-To prove P, assume ____ and show that __________.
-From this derivation you can conclude __________.
-Then you apply the rule of negation ____________
+To prove P, assume ¬P and show that this assumption leads to a contradiction.
+From this derivation you can conclude ¬P → false i.e. ¬¬P.
+Then you apply the rule of negation elimination
 to that result to arrive a a proof of P. We have
 seen that the inference rule you apply in the 
 last step is not constructively valid but that it
-is __________ valid, and that accepting the axiom
-of the __________ suffices to establish negation
-__________ (better called double _____ _________)
+is classically valid, and that accepting the axiom
+of the law of the excluded middle suffices to establish negation
+elimination (better called double negation elimination)
 as a theorem.
 -/
 
@@ -253,9 +287,13 @@ that iff has both elim_left and elim_right
 rules, just like ∧.
 -/
 
-example : _ :=
+example : ∀ (P Q : Prop), (P ↔ Q)→(Q ↔ P) :=
 begin
-_
+  assume P Q,
+  assume h,
+  have pq := h.elim_left,
+  have qp := h.elim_right,
+  apply iff.intro qp pq,
 end
 
 
@@ -275,7 +313,10 @@ Then give a formal proof. Hint: try the
 "intros" tactic by itself where you'd
 previously have used assume followed by
 a list of identifiers. Think about what
-each expression means. 
+each expression means.
+
+Everyone likes a nice, talented person. 
+John Lennon is a person who is nice and talented, so everyone must like John Lennon.
 -/
 
 def ELJL : Prop := 
@@ -293,7 +334,13 @@ def ELJL : Prop :=
 
 example : ELJL :=
 begin
-  _
+  unfold ELJL,
+  intros,
+  have johnNice:=and.elim_left JLNT,
+  have johnTalent:=and.elim_right JLNT,
+  apply elantp _ _,
+  exact johnTalent,
+  exact johnNice,
 end
 
 
@@ -304,9 +351,12 @@ If every car is either heavy or light, and red or
 blue, and we want a prove by cases that every car 
 is rad, then: 
 
--- how many cases will need to be considered? __
+-- how many cases will need to be considered? 4
 -- list the cases (informaly)
-    -- answer here
+    -- car is heavy and red
+    -- car is heavy and blue
+    -- car is light and red
+    -- car is light and blue
 
 -/
 
@@ -337,10 +387,10 @@ the terms means.)
 -/
 
 def eq_is_symmetric : Prop :=
-  ∀ (T : Type) (x y : T), _
+  ∀ (T : Type) (x y : T), (x = y)→(y = x)
 
 def eq_is_transitive : Prop :=
-  _
+  ∀ (T : Type) (x y z : T), (x = y)→(y = z)→(x = z)
 
 
 /-
@@ -359,8 +409,23 @@ both directions.
 -/
 
 def negelim_equiv_exmid : Prop := 
-  _
+  ∀ (P:Prop), (¬¬P → P) ↔ (P → (P ∨ ¬P))
 
+example: negelim_equiv_exmid:=
+begin
+  assume P,
+  apply iff.intro _ _,
+  --forward
+  assume h,
+  assume p,
+  exact or.intro_left (¬P) p,
+  --backward
+  assume h,
+  assume nnp,
+  cases classical.em P with p np,
+  exact p,
+  exact false.elim (nnp np),
+end
 
 /- 
 EXTRA CREDIT: Formally express and prove the
@@ -371,4 +436,22 @@ thre is someone who loves everyone. [5 points]
 
 axiom Loves : Person → Person → Prop
 
-example : _ := _
+example : (∃(s:Person), ∀(e:Person), Loves e s)→ 
+(∃(s:Person), ∀(e:Person), Loves s e) :=
+begin
+  assume h,
+  cases h with w pf,
+  apply exists.intro w,
+  assume r,
+
+  apply Loves (w r),
+  
+
+end
+
+--∀(E:Person) (S:Person), Loves E S → Loves S E := 
+--begin
+  --assume e s,
+  --assume h,
+  
+--end
