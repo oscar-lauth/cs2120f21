@@ -39,13 +39,13 @@ ELIMINATION
 Complete the definition of the elimination
 rule for →.
 
-In English: Given propositions, P and Q, 
-a proof of P → Q, and a proof of P. We can obtain a proof of Q by applying P → Q to P. 
-from any proof of P, is a proof of P → Q.
+In English: Given propositions, P and Q, a proof of P → Q, and a proof of P, 
+we can obtain a proof of Q by applying P → Q to P. 
+
 
 (P Q : Prop) (p2q : P → Q) (p : P)
-----------------------------------elim
-            (p2q p)
+---------------------------------- implies elim
+            (q : Q)
 -/
 
 -- Give a formal proof of the following
@@ -70,7 +70,7 @@ INTRODUCTION
 Give the introduction rule for true using
 inference rule notation.
 
-[intro.true]
+[Heres our answer]
 
 ---------- intro
 (pf: true)
@@ -78,14 +78,14 @@ inference rule notation.
 Give a brief English language explanation of
 the introduction rule for true.
 
--- we always have a proof of true so we 
+-- the proposition true is always invariably true thus we can always obtain a proof of true. 
 
 ELIMINATION
 
 Give an English language description of the
 eliimination rule for true.
 
-[There is no elimination rule for true]
+[Our answer]
 
 A proof of true carries no information so
 there's no use for an elimination rule.
@@ -108,36 +108,36 @@ INTRODUCTION
 Using inference rule notation, give the 
 introduction rule for ∧.
 
-[and.intro P Q]
+[Our answer]
 
 (P Q : Prop) (p : P) (q : Q)
 ---------------------------- intro
         (pq : P ∧ Q)
 
-Given an English language description of
+Give an English language description of
 this inference rule. What does it really
 say, in plain simple English. 
 
--- Using a proof p of P as well as a proof q of Q, we can construct P ∧ Q.
+-- Using a proof of P as well as a proof of Q, we can construct a proof of P ∧ Q.
 
 
 ELIMINATION
 
-Given the elimination rules for ∧ in both
+Give the elimination rules for ∧ in both
 inference rule and English language forms.
 -/
 /-
 (P Q : Prop) (pq : P ∧ Q)
----------------------------- elim_left
+---------------------------- and.elim_left
         (p : P)
 
 (P Q : Prop) (pq : P ∧ Q)
----------------------------- elim_right
+---------------------------- and.elim_right
         (q : Q)
 -/
 
---Given a proof of P ∧ Q, we can obtain a proof p of P by applying and's left elimination rule
---Given a proof of P ∧ Q, we can obtain a proof q of Q by applying and's right elimination rule
+--and.elim_left : Given propositions, P and Q, a proof of P ∧ Q, we can obtain a proof of P
+--and.elim_right : Given propositions, P and Q, a proof of P ∧ Q, we can obtain a proof of Q
 
 /-
 Formally state and prove the theorem that, 
@@ -164,7 +164,7 @@ T is any type (such as nat) and Q is any proposition
 given type), how do you prove ∀ (t : T), Q? What is
 the introduction rule for ∀?
 
--- assume an arbitrary t and show Q
+-- assume an arbitrary t, then show Q t i.e. that t has property Q
 
 ELIMINATION
 
@@ -174,17 +174,18 @@ filling in the bottom half, then Explain in English
 what it says.
 
 (T : Type) (Q : Prop), (pf : ∀ (t : T), Q) (t : T)
--------------------------------------------------- elim
-                (pf t)
+-------------------------------------------------- forall elim
+                (Q t)
 
 -- English language answer here
---Given a 
+--Given T is any type, Q is any proposition, and we have a proof pf that 
+all t of type T have property Q. We apply pf to t to obtain in particuliar that t has property Q. 
 
 Given a proof, (pf : ∀ (t : T), Q), and a value, (t : T),
 briefly explain in English how you *use* pf to derive a
 proof of Q.
 
--- you apply pf to t to derive a proof of Q
+-- using ∀ elimination, you apply pf to t to derive a proof of Q
 -/
 
 /-
@@ -238,8 +239,9 @@ of "proof by negation." Explain how one uses this
 strategy to prove a proposition, ¬P. 
 -/
 
--- ¬P means that P → false so the strategy in proving ¬P is to 
---assume P and show this leads to a contradiction and conclude P → false and thus ¬P
+/- ¬P means that P → false so the strategy in proving ¬P is to 
+assume P and show this leads to a contradiction and conclude P → false and thus ¬P is proved.
+-/
 
 /-
 Explain precisely in English the "proof strategy"
@@ -315,6 +317,7 @@ previously have used assume followed by
 a list of identifiers. Think about what
 each expression means.
 
+English Rendition:
 Everyone likes a nice, talented person. 
 John Lennon is a person who is nice and talented, so everyone must like John Lennon.
 -/
@@ -435,23 +438,32 @@ thre is someone who loves everyone. [5 points]
 -/
 
 axiom Loves : Person → Person → Prop
+--axiom loves_refl : Loves : eq.symm,
 
 example : (∃(s:Person), ∀(e:Person), Loves e s)→ 
 (∃(s:Person), ∀(e:Person), Loves s e) :=
 begin
   assume h,
-  cases h with w pf,
-  apply exists.intro w,
-  assume r,
-
-  apply Loves (w r),
-  
-
+  cases h with s pf,
+  apply exists.intro s,
+  assume e,
+  have loves_e_s:= pf e,
+  --given Loves is symmetric, loves_e_s → Loves s e. QED
+  admit
 end
-
---∀(E:Person) (S:Person), Loves E S → Loves S E := 
---begin
-  --assume e s,
-  --assume h,
-  
---end
+-- example : ∀(P1 P2:Person),(Loves P1 P2 ↔ Loves P2 P1) ∧ (∃(s:Person), ∀(e:Person), Loves e s)→ 
+-- (∃(s:Person), ∀(e:Person), Loves s e) :=
+-- begin
+--   assume p1 p2,
+--   assume h1,
+--   have loves_refl:= and.elim_left h1,
+--   have h2:=and.elim_right h1,
+--   cases h2 with s pf,
+--   apply exists.intro s _,
+--   assume e,
+--   have j:= iff.elim_left loves_refl,
+--   have g:= pf e,
+--   have n:=j g,
+--   -- (j (pf e))
+--   --apply
+-- end
