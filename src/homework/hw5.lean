@@ -21,8 +21,8 @@ of these types: α and β, respectively.
 -/
 
 axioms 
-  (α β : Type)
-  (p : α → Prop)
+  (α β : Type)    -- data types
+  (p : α → Prop)  -- predicates
   (q : β → Prop)
 
 /-
@@ -52,11 +52,7 @@ function that maps/takes every α value that ...
 
 -- Give your formal proof here
 begin
-  assume h k,
-  cases h with hw hpf,
-  cases k with kw kpf,
-  apply exists.intro (hw kw),
-  exact (hpf kw kpf),
+  _
 end
   
 
