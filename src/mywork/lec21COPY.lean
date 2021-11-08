@@ -109,8 +109,11 @@ to let us write the implicit argument(s)
 explicitly. 
 -/
 begin
+  unfold reflexive,
+  assume x,
   apply eq.refl,
   --apply rfl,
+  --trivial,
 end
 
 /-
@@ -297,7 +300,10 @@ lemma mk_equivalence (rfl : reflexive r) (symm : symmetric r) (trans : transitiv
 theorem eq_is_equivalence : equivalence (@eq β) :=
 begin
 end
-
+--an equivalence class of values that are congruent to each other
+--congruence mod n for any nat is an equivalence relation
+--diff between 2 nums some multiple of the modulus to be congruent mod n
+--1 and 13, mod 4. 13-1=12, 12 is multiple of 4 (4*3)
 /-
 ADDITIONAL PROPERTIES OF RELATIONS. NEXT LECTURE.
 -/
