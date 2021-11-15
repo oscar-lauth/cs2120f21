@@ -45,6 +45,13 @@ begin
   have notrbb:= (j rbb),
   contradiction,
 end
+/-
+English: To prove this proposition, we must show reflexivity of the relation implies false. 
+So, we assume the relation is reflexive and then apply a beta to reflexivity to obtain r b b.
+Now that we have a proof that r b b, we obtain a proof of ¬r b b by applying asymmetry to r b b.
+This leaves us with a contradiction, thus reflexivity of r implies false. QED.
+The proposition is not true if the existence of β is removed as then the empty set serves as a counterexample to the proposition.
+-/
 
 
 
@@ -103,6 +110,11 @@ begin
   assume xins2,
   apply s2s1 xins2,
 end
+/-
+English: To prove s1 = s2, we must show that for any x, if x is in s1, x is in s2 and vice versa.
+Given that s1 is a subset of s2, it obviously follows that that all x in s1 are in s2 by defintion of subset.
+Further, given that s2 is a subset of s1, it obviously follows that that all x in s2 are in s1 by defintion of subset.QED  
+-/
 
 
 /-
@@ -134,6 +146,13 @@ begin
   ring,
   --rw nat.mul_one,
 end
+/-
+English: To prove 1 divides n forall n, we must show there's a k such that n=k*1.
+First, we examine the case where n=0, it obviously follows that 0=k*1 for k=0 as
+0=0*1 by the basic rules of algebra and reflexivity of equality.
+Next, we examine the case where n is some non-zero nat. It obviously follows that n=k*1
+for k=n as n=n*1 by the basic rules of algebra. QED
+-/
 
 -- B. For any n, n divides n
 example : ∀ n, divides n n :=
@@ -147,6 +166,13 @@ begin
   ring,
   --rw nat.one_mul,
 end
+/-
+English: To prove n divides n forall n, we must show there's a k such that n=k*n.
+First, we examine the case where n=0, it obviously follows that 0=k*0 for k=0(or really any k) as
+0=0*0 by the basic rules of algebra and reflexivity of equality.
+Next, we examine the case where n is some non-zero nat. It obviously follows that n=k*n
+for k=1 as n=1*n by the basic rules of algebra. QED
+-/
 
 -- #C. prove that divides is reflexive 
 example : reflexive divides :=
@@ -159,7 +185,14 @@ begin
   apply exists.intro 1,
   ring,
   --rw nat.one_mul,
-end 
+end
+/-
+English: To prove divides is reflexive, we must show forall x, there's a k such at x=k*x.
+First, we examine the case where x=0, it obviously follows that 0=k*0 for k=0(or really any k) as
+0=0*0 by the basic rules of algebra and reflexivity of equality.
+Next, we examine the case where x is some non-zero nat. It obviously follows that x=k*x
+for k=1 as x=1*x by the basic rules of algebra. QED
+-/ 
 
 -- #D. prove that divides is transitive
 example : transitive divides :=
@@ -167,13 +200,20 @@ begin
   unfold transitive divides,
   assume x y z,
   assume h j,
-  cases h with hn hpf,
-  cases j with jn jpf,
-  apply exists.intro (hn*jn),
+  cases h with a hpf,
+  cases j with b jpf,
   rw jpf,
   rw hpf,
+  apply exists.intro (b*a),
   ring,
 end
+/-
+English: To prove divides is transitive, we must show forall x,y,z, 
+if x divides y and y divides z then x divides z.
+Using substitution on the defintions of x divides y and y divides z, 
+we can rewrite the goal(z=k*x) as b * (a * x) = k * x. It obviously follows that b * (a * x) = k * x 
+for k= b * a as b * (a * x) = b * a * x by the basic rules of algebra. QED.
+-/ 
 
 /- 
 E. Is divides symmetric? if yes, give a proof, otherwise 
@@ -205,6 +245,11 @@ begin
   rw foo,
   ring,
 end
+/-
+English: To prove divides is antisymmetric, it must be shown that forall x,y, x divides y and y divides x only if x=y.
+Using substitution on the defintions of x divides y and y divides x, we can rewrite the goal as x =hn*x.
+By basic algebra it's obvious that hn=1, and thus x=1*x by the ring axioms. QED. 
+-/
 
 
 /- #4
@@ -238,14 +283,20 @@ begin
 end
 
 -- C
-example : (∃(b:β),true)→transitive r → ¬ symmetric r → ¬ irreflexive r :=
+example : (∃(b:β),true) → transitive r → ¬ symmetric r → ¬ irreflexive r :=
 begin
   unfold transitive symmetric irreflexive,
-  assume h j k i,
-  cases h with b pf,
-  --have rbb:=(j b b),
-  have notrbb:=(i b),
+  assume h,
+  cases h with b t,
+  assume i j k,
+  have notrbb:=(k b),
 end
-
+/-
+This proposition is completely false.
+Even after adding an existence of β's to rule out the empty set, this proposition still remains false.
+A clear counterexample is the relation less than (<). Less than is transitive (5<6, 6<7, → 5<7).
+Less than is also not symmetric (5<6 → 6<5 → false). Thus, according to the proposition, less than should not be irreflexive.
+However, less than clearly IS irreflexive as (5<5 → false). Thus, the proposition is definitively false and unproveable. QED
+-/
 
 end relation
